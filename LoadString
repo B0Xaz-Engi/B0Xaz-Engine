@@ -1,0 +1,406 @@
+bxScript – Complete Functional Specification
+(All Functions Rayfield Provides, Rewritten as Implementation Requirements)
+
+⸻
+
+CORE LIBRARY STRUCTURE
+	1.	Create a Global Library Table
+
+Implement a global table named:
+
+bxScript
+
+This table must contain:
+	•	Window creation functions
+	•	Notification functions
+	•	Destruction logic
+	•	Visibility control
+	•	Internal flag storage
+	•	Theme handling
+	•	Configuration saving system
+
+⸻
+
+WINDOW MANAGEMENT FUNCTIONS
+	2.	Implement bxScript:CreateWindow(settings)
+
+This function must:
+	•	Create the main UI container
+	•	Store window metadata (title, subtitle, loading text)
+	•	Apply selected theme
+	•	Initialize configuration system (if enabled)
+	•	Initialize key system (if enabled)
+	•	Initialize Discord prompt (if enabled)
+	•	Bind toggle key for visibility
+
+Required Settings Support:
+	•	Name
+	•	LoadingTitle
+	•	LoadingSubtitle
+	•	ConfigurationSaving:
+	•	Enabled
+	•	FolderName
+	•	FileName
+	•	KeySystem
+	•	KeySettings
+	•	Discord
+	•	ToggleUIKeybind
+
+Return: Window object
+
+⸻
+
+	3.	Implement Window:CreateTab(name, icon)
+
+This function must:
+	•	Create a tab container
+	•	Add navigation button
+	•	Support icon rendering (Lucide icon name string)
+	•	Register tab inside window tab manager
+
+Return: Tab object
+
+⸻
+
+	4.	Implement Tab:CreateSection(name)
+
+This function must:
+	•	Create a section container
+	•	Allow grouping of elements
+	•	Support title display
+
+Return: Section object
+
+⸻
+
+	5.	Implement Tab:CreateDivider()
+
+This function must:
+	•	Insert a visual separator element
+	•	Not return interactive value
+
+⸻
+
+INTERACTIVE ELEMENT FUNCTIONS
+
+Each of the following must:
+	•	Accept configuration table
+	•	Register a unique Flag (if provided)
+	•	Store value in internal state system
+	•	Connect callback
+	•	Support configuration saving
+
+⸻
+
+	6.	Implement Tab:CreateButton(config)
+
+Required Fields:
+	•	Name
+	•	Callback
+
+Behavior:
+	•	Trigger callback when clicked
+	•	Do not store persistent state
+
+Return: Button object
+
+⸻
+
+	7.	Implement Tab:CreateToggle(config)
+
+Required Fields:
+	•	Name
+	•	CurrentValue
+	•	Flag
+	•	Callback
+
+Behavior:
+	•	Store boolean value
+	•	Trigger callback on state change
+	•	Save/load value if config saving enabled
+
+Return: Toggle object
+Must allow programmatic Set(value)
+
+⸻
+
+	8.	Implement Tab:CreateSlider(config)
+
+Required Fields:
+	•	Name
+	•	Range (min, max)
+	•	Increment
+	•	CurrentValue
+	•	Flag
+	•	Callback
+
+Behavior:
+	•	Clamp values within range
+	•	Snap to increment
+	•	Save/load state
+	•	Fire callback when changed
+
+Return: Slider object
+Must allow programmatic Set(value)
+
+⸻
+
+	9.	Implement Tab:CreateDropdown(config)
+
+Required Fields:
+	•	Name
+	•	Options (table)
+	•	CurrentOption
+	•	MultipleOptions (boolean)
+	•	Flag
+	•	Callback
+
+Behavior:
+	•	Allow single or multi-select
+	•	Return selected value(s)
+	•	Save/load state
+	•	Support refreshing options dynamically
+
+Return: Dropdown object
+Must include:
+	•	Set(options)
+	•	Refresh(newOptions)
+
+⸻
+
+	10.	Implement Tab:CreateInput(config)
+
+Required Fields:
+	•	Name
+	•	PlaceholderText
+	•	RemoveTextAfterFocusLost
+	•	Flag
+	•	Callback
+
+Behavior:
+	•	Capture text input
+	•	Return string
+	•	Save/load state
+
+Return: Input object
+Must allow Set(text)
+
+⸻
+
+	11.	Implement Tab:CreateKeybind(config)
+
+Required Fields:
+	•	Name
+	•	CurrentKeybind
+	•	HoldToInteract
+	•	Flag
+	•	Callback
+
+Behavior:
+	•	Detect key press
+	•	If HoldToInteract true, fire while held
+	•	Save/load assigned key
+
+Return: Keybind object
+Must allow Set(key)
+
+⸻
+
+	12.	Implement Tab:CreateColorPicker(config)
+
+Required Fields:
+	•	Name
+	•	Color (Color3)
+	•	Flag
+	•	Callback
+
+Behavior:
+	•	Return RGB Color3
+	•	Save/load color
+	•	Fire callback on change
+
+Return: ColorPicker object
+Must allow Set(color)
+
+⸻
+
+	13.	Implement Tab:CreateParagraph(config)
+
+Required Fields:
+	•	Title
+	•	Content
+
+Behavior:
+	•	Display static text
+	•	Non-interactive
+
+Return: Paragraph object
+
+⸻
+
+GLOBAL UTILITY FUNCTIONS
+	14.	Implement bxScript:Notify(config)
+
+Required Fields:
+	•	Title
+	•	Content
+	•	Duration
+	•	Icon (optional)
+
+Behavior:
+	•	Create temporary popup
+	•	Auto-destroy after duration
+
+⸻
+
+	15.	Implement bxScript:Destroy()
+
+Behavior:
+	•	Remove entire UI
+	•	Disconnect all events
+	•	Clear internal state
+
+⸻
+
+	16.	Implement bxScript:SetVisibility(state)
+
+Behavior:
+	•	Show or hide main UI container
+
+⸻
+
+	17.	Implement bxScript:IsVisible()
+
+Behavior:
+	•	Return true or false
+
+⸻
+
+CONFIGURATION SYSTEM
+	18.	Implement Internal Flag System
+
+Requirements:
+	•	Store all flagged element values in table
+	•	Map Flag string → value
+	•	Allow retrieval via internal storage
+
+⸻
+
+	19.	Implement Automatic Saving
+
+If ConfigurationSaving.Enabled:
+	•	Create folder (FolderName)
+	•	Create file (FileName)
+	•	Serialize flag table
+	•	Save on value change
+	•	Load on UI initialization
+	•	Apply loaded values to elements
+
+⸻
+
+KEY SYSTEM
+	20.	Implement Key Authentication Layer
+
+If KeySystem = true:
+	•	Block window loading until key validated
+	•	Display key entry UI
+	•	Compare input against KeySettings.Key table
+	•	Support SaveKey option
+	•	Save key locally if enabled
+
+⸻
+
+DISCORD INTEGRATION
+	21.	Implement Discord Prompt
+
+If Discord.Enabled:
+	•	Show prompt UI
+	•	Use Invite code
+	•	Optionally remember join state
+
+⸻
+
+THEME SYSTEM
+	22.	Implement Theme Manager
+
+Requirements:
+	•	Centralized color palette table
+	•	Background colors
+	•	Accent colors
+	•	Text colors
+	•	Hover colors
+	•	Element state colors
+
+Allow:
+	•	Default theme
+	•	Light theme
+	•	Custom themes (optional)
+
+All elements must dynamically reference theme values.
+
+⸻
+
+ICON SUPPORT
+	23.	Implement Icon Rendering
+
+Requirements:
+	•	Accept Lucide icon name string
+	•	Render vector icon or mapped asset
+	•	Use in tabs and possibly buttons
+
+⸻
+
+DYNAMIC ELEMENT CONTROL
+	24.	Each Interactive Element Must Support:
+
+	•	Programmatic Set(value)
+	•	Optional Get()
+	•	Value update without UI rebuild
+	•	Trigger callback on programmatic change (if desired)
+
+⸻
+
+OPTIONAL ADVANCED FEATURES (If Matching Rayfield Gen2)
+	25.	Implement:
+
+	•	Resizable window
+	•	Tooltips or element descriptions
+	•	UI search system
+	•	Enhanced layout engine
+	•	Developer analytics hook
+	•	Monetization hook system
+
+⸻
+
+COMPLETE FUNCTION LIST SUMMARY
+
+bxScript must contain:
+
+Core:
+	•	CreateWindow
+	•	Notify
+	•	Destroy
+	•	SetVisibility
+	•	IsVisible
+
+Window:
+	•	CreateTab
+
+Tab:
+	•	CreateSection
+	•	CreateDivider
+	•	CreateButton
+	•	CreateToggle
+	•	CreateSlider
+	•	CreateDropdown
+	•	CreateInput
+	•	CreateKeybind
+	•	CreateColorPicker
+	•	CreateParagraph
+
+Internal Systems:
+	•	Flag storage
+	•	Config saving/loading
+	•	Key authentication
+	•	Theme management
+	•	Icon support
