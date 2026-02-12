@@ -894,7 +894,6 @@ function bxScript:CreateWindow(settings)
     MainStroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
     MainStroke.Transparency = 1
     MainStroke.Parent = self.MainFrame
-    self.MainFrame.UIStroke = MainStroke
 
     -- Smooth entrance
     TweenService:Create(self.MainFrame, AnimationPresets.Bounce, {
