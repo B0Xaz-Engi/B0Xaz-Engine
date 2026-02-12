@@ -1143,12 +1143,12 @@ function bxScript:SelectTab(tab)
                 BackgroundColor3 = CurrentTheme.Tertiary,
                 Size = UDim2.new(1, -10, 0, 42)
             }):Play()
-            TweenService:Create(t.Button.TextLabel, AnimationPresets.Medium, {
+            TweenService:Create(t.TextLabel, AnimationPresets.Medium, {
                 TextColor3 = CurrentTheme.Text,
                 TextTransparency = 0.3
             }):Play()
             if t.Button:FindFirstChild("Indicator") then
-                TweenService:Create(t.Button.Indicator, AnimationPresets.Fast, {
+                TweenService:Create(Tab.Button, AnimationPresets.Fast, {
                     Size = UDim2.new(0, 0, 0, 42)
                 }):Play()
             end
