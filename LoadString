@@ -1309,6 +1309,7 @@ function bxScript:CreateTab(name, icon)
 
     -- Enhanced CreateSection
     function Tab:CreateSection(name)
+        Local SectionObj = {}
         local Section = Instance.new("Frame")
         Section.Size = UDim2.new(1, -10, 0, 0)
         Section.BackgroundColor3 = CurrentTheme.Secondary
@@ -1363,7 +1364,7 @@ function bxScript:CreateTab(name, icon)
         SPadding.Parent = SContent
 
         -- Enhanced Button
-        function Section:CreateButton(config)
+        function SectionObj:CreateButton(config)
             local Button = Instance.new("TextButton")
             Button.Size = UDim2.new(1, 0, 0, 42)
             Button.BackgroundColor3 = CurrentTheme.Tertiary
@@ -1454,7 +1455,7 @@ function bxScript:CreateTab(name, icon)
         end
 
         -- Enhanced Toggle
-        function Section:CreateToggle(config)
+        function SectionObj:CreateToggle(config)
             local Toggle = {}
             local Frame = Instance.new("Frame")
             Frame.Size = UDim2.new(1, 0, 0, 42)
@@ -1581,7 +1582,7 @@ function bxScript:CreateTab(name, icon)
         end
 
         -- Enhanced Slider
-        function Section:CreateSlider(config)
+        function SectionObj:CreateSlider(config)
             local Slider = {}
             Slider.Frame = Instance.new("Frame")
             Slider.Frame.Size = UDim2.new(1, 0, 0, 58)
@@ -1746,7 +1747,7 @@ function bxScript:CreateTab(name, icon)
         end
 
         -- Enhanced Label
-        function Section:CreateLabel(text)
+        function SectionObj:CreateLabel(text)
             local Label = Instance.new("TextLabel")
             Label.Size = UDim2.new(1, 0, 0, 36)
             Label.BackgroundColor3 = CurrentTheme.Tertiary
@@ -1788,7 +1789,7 @@ function bxScript:CreateTab(name, icon)
         end
 
         -- Enhanced Divider
-        function Section:CreateDivider()
+        function SectionObj:CreateDivider()
             local Divider = Instance.new("Frame")
             Divider.Size = UDim2.new(1, 0, 0, 1)
             Divider.BackgroundColor3 = CurrentTheme.Disabled
@@ -1805,7 +1806,7 @@ function bxScript:CreateTab(name, icon)
             DGradient.Parent = Divider
         end
 
-        return Section
+        return SectionObj
     end
 
     return Tab
