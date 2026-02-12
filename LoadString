@@ -1148,7 +1148,7 @@ function bxScript:SelectTab(tab)
                 TextTransparency = 0.3
             }):Play()
             if t.Button:FindFirstChild("Indicator") then
-                TweenService:Create(Tab.Button, AnimationPresets.Fast, {
+                TweenService:Create(Tab.Button.TextLabel, AnimationPresets.Fast, {
                     Size = UDim2.new(0, 0, 0, 42)
                 }):Play()
             end
