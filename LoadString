@@ -1179,6 +1179,7 @@ end
 -- Enhanced CreateTab
 function bxScript:CreateTab(name, icon)
     local Tab = {}
+    Tab.Window = Self
     Tab.Name = name
     Tab.Icon = icon
     Tab.Elements = {}
@@ -1556,8 +1557,8 @@ function bxScript:CreateTab(name, icon)
                 value = not value
                 update()
                 if config.Flag then
-                    self.Flags[config.Flag] = value
-                    self:SaveConfig()
+                    Tab.Flags[config.Flag] = value
+                    Tab:SaveConfig()
                 end
                 if config.Callback then
                     pcall(config.Callback, value)
@@ -1568,8 +1569,8 @@ function bxScript:CreateTab(name, icon)
                 value = newValue
                 update()
                 if config.Flag then
-                    self.Flags[config.Flag] = value
-                    self:SaveConfig()
+                    Tab.Flags[config.Flag] = value
+                    Tab:SaveConfig()
                 end
             end
 
@@ -1677,7 +1678,7 @@ function bxScript:CreateTab(name, icon)
             local increment = config.Increment or 1
             local value = config.CurrentValue or min
             
-            if config.Flag and self.Flags[config.Flag] ~= nil then
+            if config.Flag and Tab.Window.Flags[config.Flag] ~= nil then
                 value = self.Flags[config.Flag]
             end
 
@@ -1692,8 +1693,8 @@ function bxScript:CreateTab(name, icon)
                 ValueLabel.Text = tostring(value) .. (config.Suffix or "")
                 
                 if config.Flag then
-                    self.Flags[config.Flag] = value
-                    self:SaveConfig()
+                    Tab.Flags[config.Flag] = value
+                    Tab:SaveConfig()
                 end
                 if config.Callback then
                     pcall(config.Callback, value)
