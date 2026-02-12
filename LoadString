@@ -1233,9 +1233,7 @@ function bxScript:CreateTab(name, icon)
     Tab.TextLabel.TextSize = 15
     Tab.TextLabel.TextXAlignment = Enum.TextXAlignment.Left
     Tab.TextLabel.Parent = Tab.Button
-    
-    Tab.Button.TextLabel = TextLabel
-    
+
     Tab.Button.MouseEnter:Connect(function()
         if Tab.Content and not Tab.Content.Visible then
             TweenService:Create(Tab.Button, AnimationPresets.Fast, {
