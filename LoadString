@@ -1223,16 +1223,16 @@ function bxScript:CreateTab(name, icon)
     IndCorner.Parent = Indicator
 
     Tab.TextLabel = Instance.new("TextLabel")
-    TextLabel.Size = UDim2.new(1, -20, 1, 0)
-    TextLabel.Position = UDim2.new(0, 10, 0, 0)
-    TextLabel.BackgroundTransparency = 1
-    TextLabel.Text = (icon and GetIcon(icon) .. "  " or "") .. name
-    TextLabel.TextColor3 = CurrentTheme.Text
-    TextLabel.TextTransparency = 0.3
-    TextLabel.Font = Enum.Font.GothamBold
-    TextLabel.TextSize = 15
-    TextLabel.TextXAlignment = Enum.TextXAlignment.Left
-    TextLabel.Parent = Tab.Button
+    Tab.TextLabel.Size = UDim2.new(1, -20, 1, 0)
+    Tab.TextLabel.Position = UDim2.new(0, 10, 0, 0)
+    Tab.TextLabel.BackgroundTransparency = 1
+    Tab.TextLabel.Text = (icon and GetIcon(icon) .. "  " or "") .. name
+    Tab.TextLabel.TextColor3 = CurrentTheme.Text
+    Tab.TextLabel.TextTransparency = 0.3
+    Tab.TextLabel.Font = Enum.Font.GothamBold
+    Tab.TextLabel.TextSize = 15
+    Tab.TextLabel.TextXAlignment = Enum.TextXAlignment.Left
+    Tab.TextLabel.Parent = Tab.Button
     
     Tab.Button.TextLabel = TextLabel
     
